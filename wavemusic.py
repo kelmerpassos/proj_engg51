@@ -8,9 +8,11 @@ from matplotlib import pyplot
 
 
 class WaveSignal:
-    def __init__(self, filepath):
+    def __init__(self, key, music):
+        self.index = key
+        self.music = music
         super(WaveSignal, self).__init__()
-        self.signal, self.samplingrate = soundfile.read(filepath)
+        self.signal, self.samplingrate = soundfile.read(music)
 
     def convert_time(self):
         period = 1 / self.samplingrate
@@ -57,8 +59,8 @@ class WavePlayer(threading.Thread):
         self.loop = False
 
 
-def play_music(music):
-    player = WavePlayer(music)
+def play_music(key, music):
+    player = WavePlayer(key, music)
     player.play()
     return player
 
