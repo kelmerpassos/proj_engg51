@@ -1,4 +1,5 @@
 import time
+from const import M_EXIT
 import os
 
 
@@ -13,28 +14,27 @@ class Interface:
         2 - PARAR/TOCAR MÚSICA
         3 - MOSTRAR LETRA
         4 - PLOTAR GRÁFICO
-        9 - FECHAR PROGRAMA
+        0 - FECHAR PROGRAMA
         ''')
         while True:
-            if option in ('1', '2', '3'):
+            if option in ('1', '2', '3', '4', '0'):
                 return option
             else:
                 print('cls')
                 print('Código inválido, digite novamente!')
 
-
     def list(self):
         print('MÚSICAS:', end='\n\n\n')
         for key, value in self.playlist.items():
             print(str(key)+' - '+value, end='\n\n')
+        print('0 - FECHAR PROGRAMA')
         option = input('Digite o número da música.')
         while True:
-            if option in self.playlist.keys:
+            if option in self.playlist.keys or option == M_EXIT:
                 return option
             else:
                 os.system('cls')
                 print('Código inválido, digite novamente!')
-
 
     def start(self):
         print('''
