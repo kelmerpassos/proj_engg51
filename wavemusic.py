@@ -2,17 +2,38 @@ import pyaudio
 import os
 import wave
 import threading
+import numpy
+import soundfile
+from matplotlib import pyplot
 
 
-class WavePlayerLoop(threading.Thread):
+class WaveSignal:
+    def __init__(self, filepath):
+        super(WaveSignal, self).__init__()
+        self.signal, self.samplingrate = soundfile.read(filepath)
+
+    def convert_time(self):
+        period = 1 / self.samplingrate
+        return numpy.arange(0, len(self.signal) * period, period)
+
+    def plot_chart(self):
+        pyplot.plot(self.convert_time(), self.signal)
+        pyplot.title('Gráfico do Sinal')
+        pyplot.xlabel('tempo (s)')
+        pyplot.ylabel('amplitude (V)')
+        pyplot.grid()
+        pyplot.show()
+
+
+class WavePlayer(threading.Thread):
     def __init__(self, filepath, loop=True):
-        super(WavePlayerLoop, self).__init__()
+        super(WavePlayer, self).__init__()
         self.filepath = os.path.abspath(filepath)
         self.loop = loop
 
     def run(self):
         CHUNKSIZE = 2048
-        wf = wave.open(self.filepath, 'rb')
+        wf = wave.open(self.filepath, 'r')
         player = pyaudio.PyAudio()
         stream = player.open(
             format=player.get_format_from_width(wf.getsampwidth()),
@@ -37,9 +58,14 @@ class WavePlayerLoop(threading.Thread):
 
 
 def play_music(music):
-    player = WavePlayerLoop(music)
+    player = WavePlayer(music)
     player.play()
     return player
+
+
+def plot_chart(music):
+    grafic = WaveSignal(music)
+    grafic.plot_chart()
 
 
 
