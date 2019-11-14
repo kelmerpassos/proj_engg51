@@ -8,8 +8,7 @@ from matplotlib import pyplot
 
 
 class WaveSignal:
-    def __init__(self, key, music):
-        self.index = key
+    def __init__(self, music):
         self.music = music
         super(WaveSignal, self).__init__()
         self.signal, self.samplingrate = soundfile.read(music)
@@ -35,7 +34,7 @@ class WavePlayer(threading.Thread):
 
     def run(self):
         CHUNKSIZE = 2048
-        wf = wave.open(self.filepath, 'r')
+        wf = wave.open(self.filepath, 'rb')
         player = pyaudio.PyAudio()
         stream = player.open(
             format=player.get_format_from_width(wf.getsampwidth()),
@@ -59,9 +58,8 @@ class WavePlayer(threading.Thread):
         self.loop = False
 
 
-def play_music(key, music):
-    player = WavePlayer(key, music)
-    player.play()
+def create_music(music):
+    player = WavePlayer(music)
     return player
 
 

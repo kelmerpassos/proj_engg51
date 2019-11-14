@@ -17,6 +17,7 @@ class PlayList:
             file_plot = self.valid_plot(file)
             if file_plot is not None:
                 self.count = self.count+1
+                file = self.path+'/'+file[6:]
                 self.musics[self.count] = [file, file_plot]
 
     def valid_plot(self, file):

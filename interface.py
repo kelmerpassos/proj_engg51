@@ -6,7 +6,7 @@ import os
 class Interface:
     def __init__(self, musics):
         super(Interface, self).__init__()
-        self.playlist = {key: value[0][6:-4] for key, value in musics.items()}
+        self.playlist = {key: value[1][6:-4] for key, value in musics.items()}
 
     def options(self):
         option = input('''
@@ -28,9 +28,13 @@ class Interface:
         for key, value in self.playlist.items():
             print(str(key)+' - '+value, end='\n\n')
         print('0 - FECHAR PROGRAMA')
-        option = input('Digite o número da música.')
         while True:
-            if option in self.playlist.keys or option == M_EXIT:
+            option = input('Digite o número da música.')
+            try:
+                option = int(option)
+            except ValueError:
+                option = -1
+            if option in self.playlist.keys() or option == M_EXIT:
                 return option
             else:
                 os.system('cls')
