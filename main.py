@@ -9,28 +9,33 @@ if __name__ == "__main__":
     interface.start()
     interface.load()
     while True:
-        cod_music = int(interface.list())
+        cod_music = interface.list()
         if cod_music != M_EXIT:
-            control = create_music(play_list.musics[cod_music][0])
+            control = None
             tocando = False
             while True:
-                cod_function = int(interface.options())
+                cod_function = interface.options()
                 if cod_function == M_LIST:
-                    control.stop()
+                    if control is not None:
+                        control.stop()
                     break
                 elif cod_function == M_STOP_PLAY:
                     if not tocando:
-                        control = create_music(play_list.musics[cod_music][0])
+                        cod_speed = interface.speed()
+                        control = create_music(play_list.musics[cod_music][0], cod_speed)
                         control.play()
                         tocando = True
                     else:
                         control.stop()
                         tocando = False
                 elif cod_function == M_SUBS:
-                    pass
+                    play_list.show_sub(cod_music)
+                    stop = input()
                 elif cod_function == M_PLOT:
                     plot_chart(play_list.musics[cod_music][1])
                 elif cod_function == M_EXIT:
+                    if control is not None:
+                        control.stop()
                     exit()
         else:
             exit()

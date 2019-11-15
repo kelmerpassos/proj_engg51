@@ -27,10 +27,11 @@ class WaveSignal:
 
 
 class WavePlayer(threading.Thread):
-    def __init__(self, filepath, loop=True):
+    def __init__(self, filepath, speed, loop=True):
         super(WavePlayer, self).__init__()
         self.filepath = os.path.abspath(filepath)
         self.loop = loop
+        self.speed = speed
 
     def run(self):
         CHUNKSIZE = 2048
@@ -39,7 +40,7 @@ class WavePlayer(threading.Thread):
         stream = player.open(
             format=player.get_format_from_width(wf.getsampwidth()),
             channels=wf.getnchannels(),
-            rate=wf.getframerate(),
+            rate=wf.getframerate()*self.speed,
             output=True
         )
         data = wf.readframes(CHUNKSIZE)
@@ -58,8 +59,8 @@ class WavePlayer(threading.Thread):
         self.loop = False
 
 
-def create_music(music):
-    player = WavePlayer(music)
+def create_music(music, speed):
+    player = WavePlayer(music, speed)
     return player
 
 

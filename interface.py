@@ -6,30 +6,49 @@ import os
 class Interface:
     def __init__(self, musics):
         super(Interface, self).__init__()
-        self.playlist = {key: value[1][6:-4] for key, value in musics.items()}
+        self.playlist = {key: value[0][6:-4] for key, value in musics.items()}
 
     def options(self):
-        option = input('''
-        1 - TROCAR MÚSICA
-        2 - PARAR/TOCAR MÚSICA
-        3 - MOSTRAR LETRA
-        4 - PLOTAR GRÁFICO
-        0 - FECHAR PROGRAMA
-        ''')
         while True:
+            os.system('cls')
+            print('1 - TROCAR MÚSICA')
+            print('2 - PARAR/TOCAR MÚSICA')
+            print('3 - MOSTRAR LETRA')
+            print('4 - PLOTAR GRÁFICO')
+            print('0 - FECHAR PROGRAMA')
+            option = input()
             if option in ('1', '2', '3', '4', '0'):
-                return option
+                return int(option)
             else:
-                print('cls')
+                os.system('cls')
                 print('Código inválido, digite novamente!')
+                time.sleep(2)
+
+    def speed(self):
+        while True:
+            os.system('cls')
+            print('Nível de velocidade')
+            print('1 - Velocidade normal')
+            print('2 - Velocidade um')
+            print('2 - Velocidade um')
+            print('4 - Velocidade três')
+            option = input()
+            if option in ('1', '2', '3', '4'):
+                return int(option)
+            else:
+                os.system('cls')
+                print('Código inválido, digite novamente!')
+                time.sleep(2)
 
     def list(self):
-        print('MÚSICAS:', end='\n\n\n')
-        for key, value in self.playlist.items():
-            print(str(key)+' - '+value, end='\n\n')
-        print('0 - FECHAR PROGRAMA')
         while True:
-            option = input('Digite o número da música.')
+            os.system('cls')
+            print('MÚSICAS:', end='\n\n')
+            for key, value in self.playlist.items():
+                print(str(key) + ' - ' + value)
+            print('0 - FECHAR PROGRAMA', end='\n\n')
+            print('Digite o número da música.')
+            option = input()
             try:
                 option = int(option)
             except ValueError:
@@ -39,6 +58,7 @@ class Interface:
             else:
                 os.system('cls')
                 print('Código inválido, digite novamente!')
+                time.sleep(2)
 
     def start(self):
         print('''
