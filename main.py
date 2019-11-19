@@ -9,17 +9,17 @@ if __name__ == "__main__":
     interface.start()
     interface.load()
     while True:
-        cod_music = interface.list()
+        cod_music = interface.list()  # lista músicas
         if cod_music != M_EXIT:
             control = None
             tocando = False
             while True:
-                cod_function = interface.options()
-                if cod_function == M_LIST:
+                cod_function = interface.options()  # lista funcionalidades
+                if cod_function == M_LIST:  # retorna para a listagem de músicas
                     if control is not None:
                         control.stop()
                     break
-                elif cod_function == M_STOP_PLAY:
+                elif cod_function == M_STOP_PLAY:  # toca ou para a música
                     if not tocando:
                         cod_speed = interface.speed()
                         control = create_music(play_list.musics[cod_music][0], cod_speed)
@@ -28,12 +28,12 @@ if __name__ == "__main__":
                     else:
                         control.stop()
                         tocando = False
-                elif cod_function == M_SUBS:
+                elif cod_function == M_SUBS:  # mostra legenda
                     play_list.show_sub(cod_music)
                     stop = input()
                 elif cod_function == M_PLOT:
                     plot_chart(play_list.musics[cod_music][1])
-                elif cod_function == M_EXIT:
+                elif cod_function == M_EXIT:  # sai do programa
                     if control is not None:
                         control.stop()
                     exit()

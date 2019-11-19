@@ -6,7 +6,7 @@ import os
 class Interface:
     def __init__(self, musics):
         super(Interface, self).__init__()
-        self.playlist = {key: value[0][6:-4] for key, value in musics.items()}
+        self.playlist = {key: value[0][6:-4] for key, value in musics.items()}  # salva lista de músicas
 
     def options(self):
         while True:

@@ -9,13 +9,13 @@ from matplotlib import pyplot
 
 class WaveSignal:
     def __init__(self, music):
-        self.music = music
+        self.music = music  # salvo path da musica
         super(WaveSignal, self).__init__()
-        self.signal, self.samplingrate = soundfile.read(music)
+        self.signal, self.samplingrate = soundfile.read(music)  # realizo downmix e obtenho a frequência
 
     def convert_time(self):
         period = 1 / self.samplingrate
-        return numpy.arange(0, len(self.signal) * period, period)
+        return numpy.arange(0, len(self.signal) * period, period)  # retorna o tempo do áudio
 
     def plot_chart(self):
         pyplot.plot(self.convert_time(), self.signal)
@@ -34,10 +34,10 @@ class WavePlayer(threading.Thread):
         self.speed = speed
 
     def run(self):
-        CHUNKSIZE = 2048
-        wf = wave.open(self.filepath, 'rb')
+        CHUNKSIZE = 2048  # tamanho da leitura
+        wf = wave.open(self.filepath, 'rb')  # ler arquivo de áudio
         player = pyaudio.PyAudio()
-        stream = player.open(
+        stream = player.open(  # configura o arquivo de áudio na memória
             format=player.get_format_from_width(wf.getsampwidth()),
             channels=wf.getnchannels(),
             rate=wf.getframerate()*self.speed,
