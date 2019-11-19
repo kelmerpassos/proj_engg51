@@ -1,7 +1,7 @@
 .idea
 /venv_engg51
 /__pycache__/
-musics/*.txt
+music/*.txt
 *.wav
 *.pyc
 *.pyo
