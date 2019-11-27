@@ -29,6 +29,7 @@ if __name__ == "__main__":
                         control.stop()
                         tocando = False
                 elif cod_function == M_SUBS:  # mostra legenda
+                    interface.clean()
                     play_list.show_sub(cod_music)
                     stop = input()
                 elif cod_function == M_PLOT:

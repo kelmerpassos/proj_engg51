@@ -8,9 +8,15 @@ class Interface:
         super(Interface, self).__init__()
         self.playlist = {key: value[0][6:-4] for key, value in musics.items()}  # salva lista de músicas
 
+    def clean(self):
+        if os.name == 'nt':
+            os.system('cls')
+        elif os.name == 'posix':
+            os.system('clear')
+
     def options(self):
         while True:
-            os.system('cls')
+            self.clean()
             print('1 - TROCAR MÚSICA')
             print('2 - PARAR/TOCAR MÚSICA')
             print('3 - MOSTRAR LETRA')
@@ -20,29 +26,29 @@ class Interface:
             if option in ('1', '2', '3', '4', '0'):
                 return int(option)
             else:
-                os.system('cls')
+                self.clean()
                 print('Código inválido, digite novamente!')
                 time.sleep(2)
 
     def speed(self):
         while True:
-            os.system('cls')
+            self.clean()
             print('Nível de velocidade')
             print('1 - Velocidade normal')
             print('2 - Velocidade um')
-            print('2 - Velocidade um')
+            print('3 - Velocidade um')
             print('4 - Velocidade três')
             option = input()
             if option in ('1', '2', '3', '4'):
                 return int(option)
             else:
-                os.system('cls')
+                self.clean()
                 print('Código inválido, digite novamente!')
                 time.sleep(2)
 
     def list(self):
         while True:
-            os.system('cls')
+            self.clean()
             print('MÚSICAS:', end='\n\n')
             for key, value in self.playlist.items():
                 print(str(key) + ' - ' + value)
@@ -56,7 +62,7 @@ class Interface:
             if option in self.playlist.keys() or option == M_EXIT:
                 return option
             else:
-                os.system('cls')
+                self.clean()
                 print('Código inválido, digite novamente!')
                 time.sleep(2)
 
@@ -74,7 +80,7 @@ class Interface:
     def load(self):
         print('Carregando...')
         time.sleep(3)
-        os.system('cls')
+        self.clean()
 
 
 def create_interface(musics):
