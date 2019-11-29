@@ -6,6 +6,7 @@ from wavemusic import plot_chart, create_music
 if __name__ == "__main__":
     play_list = create_play_list()
     interface = create_interface(play_list.musics)
+    interface.clean()
     interface.start()
     interface.load()
     while True:
