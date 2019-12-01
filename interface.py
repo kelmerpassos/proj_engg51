@@ -36,7 +36,7 @@ class Interface:
             print('Nível de velocidade')
             print('1 - Velocidade normal')
             print('2 - Velocidade um')
-            print('3 - Velocidade um')
+            print('3 - Velocidade dois')
             print('4 - Velocidade três')
             option = input()
             if option in ('1', '2', '3', '4'):
