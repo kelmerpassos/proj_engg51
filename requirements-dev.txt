@@ -1,4 +1,4 @@
 matplotlib==3.0.3
-numpy==1.17.4
+numpy==1.22.0
 PyAudio==0.2.11
 SoundFile==0.10.2
